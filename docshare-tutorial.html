@@ -1,0 +1,43 @@
+<head>
+  <title>docshare</title>
+</head>
+
+<body>
+  {{> documentList}}
+  <hr>
+  {{> documentView}}
+</body>
+
+<template name="documentList">
+  <h1>Welcome to document sharing!</h1>
+  <div class="documents">
+    {{#each documents}}
+      {{> document}}
+    {{/each}}
+  </div>
+
+  <div id="createDocument">
+    Name: <input type="text" id="new-document-name" placeholder="New document" /> <input type="button" id="new-document" value="create"/>
+  </div>
+</template>
+
+<template name="document">
+  <div class="document {{selected}}">
+    <p>
+      {{ name }}
+      <input type="button" id="edit-document" value="Edit"/>
+      <input type="button" id="delete-document" value="Delete"/>
+    </p>
+  </div>
+</template>
+
+<template name="documentView">
+  {{#if selectedDocument}}
+  {{#with selectedDocument}}
+    <div class="display">
+      <p>{{ name }}</p>
+      <textarea id="document-text" rows="10" cols="80">{{ text }}</textarea>
+    </div>
+  {{/with}}
+  {{/if}}
+</template>
