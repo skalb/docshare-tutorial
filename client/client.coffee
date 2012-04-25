@@ -40,9 +40,13 @@ Template.document.selected = ->
 
 Template.documentView.selectedDocument = ->
   document_id = Session.get("document_id")
-  Documents.findOne(
+  selected = Documents.findOne(
     _id: document_id
   )
+  if selected
+    # This shouldn't be necessary, but otherwise the value doesn't update correctly
+    $('#document-text').val(selected.text)
+    selected
 
 Template.documentView.events = 
   'keyup #document-text': (e) ->
@@ -50,4 +54,3 @@ Template.documentView.events =
     sel = _id: Session.get("document_id")
     mod = $set: text: $('#document-text').val()
     Documents.update(sel, mod)
-
